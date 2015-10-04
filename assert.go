@@ -18,11 +18,15 @@ package tests
 import (
 	"fmt"
 	"runtime"
-	"testing"
 )
 
+type Tester interface {
+	Errorf(format string, args ...interface{})
+	FailNow()
+}
+
 // Simple assert call for unit and functional tests
-func Assert(t *testing.T, b bool, message ...interface{}) {
+func Assert(t Tester, b bool, message ...interface{}) {
 	if !b {
 		pc, file, line, _ := runtime.Caller(1)
 		caller_func_info := runtime.FuncForPC(pc)
