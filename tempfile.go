@@ -12,7 +12,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-//
+
 package tests
 
 import (
@@ -24,7 +24,7 @@ func tempfile_generate() func() string {
 	counter := 0
 	return func() string {
 		counter++
-		return fmt.Sprintf("/tmp/heketi_test.%d-%d",
+		return fmt.Sprintf("/tmp/gounittest.%d-%d",
 			os.Getpid(), counter)
 	}
 }
@@ -32,7 +32,7 @@ func tempfile_generate() func() string {
 var genname = tempfile_generate()
 
 // Return a filename string in the form of
-// /tmp/pblcache_test.<Process Id>-<Counter>
+// /tmp/gounittest.<Process Id>-<Counter>
 func Tempfile() string {
 	return genname()
 }
