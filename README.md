@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/heketi/tests.svg?branch=master)](https://travis-ci.org/heketi/tests)
+[![GoDoc](https://godoc.org/github.com/heketi/tests?status.png)](https://godoc.org/github.com/heketi/tests)
 # Heketi Test Functions
 
 Generic Go test funcitions
