@@ -45,3 +45,7 @@ func Assert(t Tester, b bool, message ...interface{}) {
 		t.FailNow()
 	}
 }
+
+func AssertErrEqual(t Tester, expected error, got error) {
+	Assert(t, got == expected, "Expected error ==", expected, ", got:", got)
+}

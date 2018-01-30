@@ -16,6 +16,7 @@
 package tests
 
 import (
+	"errors"
 	"strings"
 	"testing"
 )
@@ -46,6 +47,32 @@ func TestAssertFail(t *testing.T) {
 
 	test := &FakeTester{}
 	Assert(test, false)
+
+	if !test.Failed() {
+		t.Fail()
+	}
+}
+
+func TestAssertErrEqualPass(t *testing.T) {
+	test := &FakeTester{}
+
+	err1 := errors.New("error")
+	err2 := err1
+
+	AssertErrEqual(test, err1, err2)
+
+	if test.Failed() {
+		t.Fail()
+	}
+}
+
+func TestAssertErrEqualFail(t *testing.T) {
+	test := &FakeTester{}
+
+	err1 := errors.New("error 1")
+	err2 := errors.New("error 2")
+
+	AssertErrEqual(test, err1, err2)
 
 	if !test.Failed() {
 		t.Fail()
