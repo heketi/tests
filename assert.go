@@ -53,3 +53,7 @@ func AssertErrEqual(t Tester, expected error, got error) {
 func AssertErrNil(t Tester, got error) {
 	Assert(t, got == nil, "Expected error == nil, got: ", got)
 }
+
+func AssertErrNotNil(t Tester, got error) {
+	Assert(t, got != nil, "Expected error != nil, but got nil.")
+}
