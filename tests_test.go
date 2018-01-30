@@ -79,6 +79,31 @@ func TestAssertErrEqualFail(t *testing.T) {
 	}
 }
 
+func TestAssertErrNilPass(t *testing.T) {
+	test := &FakeTester{}
+
+	var err error
+	err = nil
+
+	AssertErrNil(test, err)
+
+	if test.Failed() {
+		t.Fail()
+	}
+}
+
+func TestAssertErrNilFail(t *testing.T) {
+	test := &FakeTester{}
+
+	err := errors.New("error")
+
+	AssertErrNil(test, err)
+
+	if !test.Failed() {
+		t.Fail()
+	}
+}
+
 func TestTempfile(t *testing.T) {
 	s1 := Tempfile()
 	Assert(t, strings.Contains(s1, "gounittest"))
