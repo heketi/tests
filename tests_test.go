@@ -16,6 +16,7 @@
 package tests
 
 import (
+	"errors"
 	"strings"
 	"testing"
 )
@@ -46,6 +47,82 @@ func TestAssertFail(t *testing.T) {
 
 	test := &FakeTester{}
 	Assert(test, false)
+
+	if !test.Failed() {
+		t.Fail()
+	}
+}
+
+func TestAssertErrEqualPass(t *testing.T) {
+	test := &FakeTester{}
+
+	err1 := errors.New("error")
+	err2 := err1
+
+	AssertErrEqual(test, err1, err2)
+
+	if test.Failed() {
+		t.Fail()
+	}
+}
+
+func TestAssertErrEqualFail(t *testing.T) {
+	test := &FakeTester{}
+
+	err1 := errors.New("error 1")
+	err2 := errors.New("error 2")
+
+	AssertErrEqual(test, err1, err2)
+
+	if !test.Failed() {
+		t.Fail()
+	}
+}
+
+func TestAssertErrNilPass(t *testing.T) {
+	test := &FakeTester{}
+
+	var err error
+	err = nil
+
+	AssertErrNil(test, err)
+
+	if test.Failed() {
+		t.Fail()
+	}
+}
+
+func TestAssertErrNilFail(t *testing.T) {
+	test := &FakeTester{}
+
+	err := errors.New("error")
+
+	AssertErrNil(test, err)
+
+	if !test.Failed() {
+		t.Fail()
+	}
+}
+
+func TestAssertErrNotNilPass(t *testing.T) {
+	test := &FakeTester{}
+
+	err := errors.New("error")
+
+	AssertErrNotNil(test, err)
+
+	if test.Failed() {
+		t.Fail()
+	}
+}
+
+func TestAssertErrNotNilFail(t *testing.T) {
+	test := &FakeTester{}
+
+	var err error
+	err = nil
+
+	AssertErrNotNil(test, err)
 
 	if !test.Failed() {
 		t.Fail()
